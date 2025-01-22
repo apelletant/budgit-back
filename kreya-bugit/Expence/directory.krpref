@@ -1,0 +1,13 @@
+{
+  "settings": [
+    {
+      "options": {
+        "rest": {
+          "endpoint": "http://127.0.0.1:80",
+          "pathParams": [],
+          "disableServerCertificateValidation": true
+        }
+      }
+    }
+  ]
+}
