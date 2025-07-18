@@ -1,3 +1,5 @@
+github.com/apelletant/logger v0.1.0 h1:fO+gDXUdHDgO1rc8ii4Xz1/jzKH8tBqm1z2Gs1rDvMs=
+github.com/apelletant/logger v0.1.0/go.mod h1:z6U+v4IW6vui+0mHhKfB7ebRm0NkbH/TPSjZYlFdzYQ=
 github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
 github.com/google/uuid v1.6.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
 github.com/namsral/flag v1.7.4-pre h1:b2ScHhoCUkbsq0d2C15Mv+VU8bl8hAXV8arnWiOHNZs=

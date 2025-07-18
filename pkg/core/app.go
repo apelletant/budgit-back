@@ -27,6 +27,7 @@ func (a *App) AddExpence(ctx context.Context, req *domain.AddExpenceReq) error {
 		Interval:     req.Interval,
 		Value:        req.Value,
 		ID:           uuid,
+		Label:        req.Label,
 	}
 
 	a.expenceStore.AddExpence(ctx, e)

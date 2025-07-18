@@ -9,11 +9,15 @@ import (
 	"time"
 
 	"github.com/apelletant/budgit/pkg/domain"
+
+	Log "github.com/apelletant/logger"
+
 	"golang.org/x/sync/errgroup"
 )
 
 var (
 	ErrMissingServer = errors.New("server should be initialized")
+	ErrMissingLogger = errors.New("logger should be initialized")
 )
 
 type Config struct {
@@ -26,9 +30,18 @@ func (cfg *Config) validate() error {
 
 type Dependencies struct {
 	App domain.App
+	Log *Log.Logger
 }
 
 func (d *Dependencies) validate() error {
+	if d.Log == nil {
+		return fmt.Errorf("dependencies.Log: %w", ErrMissingLogger)
+	}
+
+	if d.App == nil {
+		return fmt.Errorf("dependencies.App: %w", ErrMissingServer)
+	}
+
 	return nil
 }
 
@@ -79,8 +92,7 @@ func (srv *Server) Run(ctx context.Context) error {
 	errG, errCtx := errgroup.WithContext(ctx)
 
 	errG.Go(func() error {
-		// TODO proper logs
-		fmt.Printf("listening on port %d\n", srv.cfg.Port)
+		srv.deps.Log.Info("starting server on port:", srv.cfg.Port)
 
 		err := srv.s.ListenAndServe()
 		if err != nil {
@@ -93,7 +105,7 @@ func (srv *Server) Run(ctx context.Context) error {
 	<-errCtx.Done()
 
 	if err := srv.s.Close(); err != nil {
-		//clog.Logger.Error("h.srv.Close", clog.Error(err))
+		srv.deps.Log.Error("h.srv.Close", err)
 	}
 
 	if err := errG.Wait(); err != nil {

@@ -7,15 +7,16 @@ import (
 )
 
 type AddExpenceReq struct {
-	Value        int
-	Interval     time.Duration
-	Label        string
-	CreationDate int64
+	Value        int           `json:"value"`
+	Interval     time.Duration `json:"interval"`
+	Label        string        `json:"label"`
+	CreationDate int64         `json:"creation_date"`
 }
 
 type Expence struct {
-	CreationDate int64
-	Interval     time.Duration
-	Value        int
-	ID           uuid.UUID
+	CreationDate int64         `json:"creation_date"`
+	Interval     time.Duration `json:"interval"`
+	Value        int           `json:"value"`
+	Label        string        `json:"label"`
+	ID           uuid.UUID     `json:"id"`
 }

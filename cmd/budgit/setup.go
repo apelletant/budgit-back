@@ -1,7 +1,14 @@
 package main
 
-type dependencies struct{}
+import "github.com/apelletant/logger"
 
-func setupDeps(_ *Config) (*dependencies, error) {
-	return &dependencies{}, nil
+type dependencies struct {
+	log *logger.Logger
+}
+
+func setupDeps(cfg *Config) (*dependencies, error) {
+	logger := logger.NewLogger(cfg.Debug)
+	return &dependencies{
+		log: logger,
+	}, nil
 }
