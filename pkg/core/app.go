@@ -2,6 +2,7 @@ package core
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/apelletant/budgit/pkg/domain"
 	"github.com/google/uuid"
@@ -30,7 +31,9 @@ func (a *App) AddExpence(ctx context.Context, req *domain.AddExpenceReq) error {
 		Label:        req.Label,
 	}
 
-	a.expenceStore.AddExpence(ctx, e)
+	if err := a.expenceStore.AddExpence(ctx, e); err != nil {
+		return fmt.Errorf("a.expenceStore.AddExpence: %w", err)
+	}
 
 	return nil
 }

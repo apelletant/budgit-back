@@ -1,3 +1,6 @@
+// TODO REMOVE
+//
+//nolint:unused
 package pgsql
 
 import "time"

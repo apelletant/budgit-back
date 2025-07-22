@@ -7,4 +7,7 @@ run-with-docker: build
 clean:
 	docker rmi budgit-back
 
+lint: 
+	golangci-lint run
+
 .PHONY: run-with-docker clean build

@@ -116,7 +116,7 @@ func (srv *Server) Run(ctx context.Context) error {
 }
 
 func (srv *Server) HelloWorld(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Hello World"))
+	w.Write([]byte("Hello World")) //nolint:errcheck
 }
 
 func (srv *Server) AddExpence(w http.ResponseWriter, r *http.Request) {
@@ -175,5 +175,5 @@ func (srv *Server) GetAllExpences(w http.ResponseWriter, r *http.Request) {
 func (srv *Server) writeResponseMessage(w http.ResponseWriter, statusCode int, message string) {
 	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(statusCode)
-	w.Write([]byte(message))
+	w.Write([]byte(message)) //nolint:errcheck
 }
