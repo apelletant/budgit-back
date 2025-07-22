@@ -10,4 +10,8 @@ clean:
 lint: 
 	golangci-lint run
 
-.PHONY: run-with-docker clean build
+setup-hooks:
+	@git config core.hooksPath githooks
+	@echo "✅ Git hooks configured to use githooks/ directory"
+
+.PHONY: run-with-docker clean build setup-hooks

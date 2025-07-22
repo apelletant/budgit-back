@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo "Running golangci-lint before push..."
+make lint
+if [ $? -ne 0 ]; then
+    echo "❌ Push rejected: golangci-lint checks failed"
+    exit 1
+fi
+echo "✅ Lint checks passed, proceeding with push"
