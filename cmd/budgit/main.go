@@ -58,6 +58,7 @@ func (a *app) run(ctx context.Context) error {
 	if err := errG.Wait(); err != nil {
 		return err // nolint: wrapcheck
 	}
+
 	return nil
 }
 
