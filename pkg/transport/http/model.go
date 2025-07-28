@@ -1,6 +1,6 @@
 package http
 
-type AddExpence struct {
+type AddExpense struct {
 	Label        string
 	Value        int
 	Interval     string

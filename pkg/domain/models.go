@@ -6,14 +6,14 @@ import (
 	"github.com/google/uuid"
 )
 
-type AddExpenceReq struct {
+type AddExpenseReq struct {
 	Value        int           `json:"value"`
 	Interval     time.Duration `json:"interval"`
 	Label        string        `json:"label"`
 	CreationDate int64         `json:"creation_date"`
 }
 
-type Expence struct {
+type Expense struct {
 	CreationDate int64         `json:"creation_date"`
 	Interval     time.Duration `json:"interval"`
 	Value        int           `json:"value"`

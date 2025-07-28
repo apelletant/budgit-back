@@ -1,6 +1,6 @@
 {
   "details": {
-    "path": "/expences",
+    "path": "/expenses",
     "method": "GET",
     "pathParams": []
   },

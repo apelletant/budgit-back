@@ -20,10 +20,10 @@ func New(store domain.Store) *App {
 	}
 }
 
-func (a *App) AddExpence(ctx context.Context, req *domain.AddExpenceReq) error {
+func (a *App) AddExpense(ctx context.Context, req *domain.AddExpenseReq) error {
 	uuid := uuid.New()
 
-	e := &domain.Expence{
+	e := &domain.Expense{
 		CreationDate: req.CreationDate,
 		Interval:     req.Interval,
 		Value:        req.Value,
@@ -31,13 +31,13 @@ func (a *App) AddExpence(ctx context.Context, req *domain.AddExpenceReq) error {
 		Label:        req.Label,
 	}
 
-	if err := a.expenceStore.AddExpence(ctx, e); err != nil {
-		return fmt.Errorf("a.expenceStore.AddExpence: %w", err)
+	if err := a.expenceStore.AddExpense(ctx, e); err != nil {
+		return fmt.Errorf("a.expenceStore.AddExpense: %w", err)
 	}
 
 	return nil
 }
 
-func (a *App) GetAllExpences(ctx context.Context) ([]*domain.Expence, error) {
-	return a.expenceStore.GetAllExpences(ctx)
+func (a *App) GetAllExpenses(ctx context.Context) ([]*domain.Expense, error) {
+	return a.expenceStore.GetAllExpenses(ctx)
 }

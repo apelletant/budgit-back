@@ -5,7 +5,7 @@ package pgsql
 
 import "time"
 
-type Expence struct {
+type Expense struct {
 	id           string
 	interval     time.Duration
 	creationDate time.Time

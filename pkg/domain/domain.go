@@ -5,11 +5,11 @@ import (
 )
 
 type App interface {
-	AddExpence(context.Context, *AddExpenceReq) error
-	GetAllExpences(context.Context) ([]*Expence, error)
+	AddExpense(context.Context, *AddExpenseReq) error
+	GetAllExpenses(context.Context) ([]*Expense, error)
 }
 
 type Store interface {
-	AddExpence(context.Context, *Expence) error
-	GetAllExpences(context.Context) ([]*Expence, error)
+	AddExpense(context.Context, *Expense) error
+	GetAllExpenses(context.Context) ([]*Expense, error)
 }

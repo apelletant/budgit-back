@@ -8,4 +8,7 @@ require (
 	golang.org/x/sync v0.10.0
 )
 
-require github.com/apelletant/logger v0.1.0
+require (
+	github.com/apelletant/logger v0.1.0
+	github.com/rs/cors v1.11.1
+)

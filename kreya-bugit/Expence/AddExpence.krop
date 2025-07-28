@@ -1,6 +1,6 @@
 {
   "details": {
-    "path": "/expence",
+    "path": "/expense",
     "method": "POST",
     "headers": [
       {
@@ -12,7 +12,7 @@
   },
   "requests": [
     {
-      "location": "AddExpence-request.json",
+      "location": "AddExpense-request.json",
       "contentType": "json"
     }
   ],

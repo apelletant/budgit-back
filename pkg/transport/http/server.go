@@ -10,6 +10,8 @@ import (
 
 	"github.com/apelletant/budgit/pkg/domain"
 
+	"github.com/rs/cors"
+
 	Log "github.com/apelletant/logger"
 
 	"golang.org/x/sync/errgroup"
@@ -65,23 +67,21 @@ func New(deps *Dependencies, cfg *Config) (*Server, error) {
 		deps: deps,
 	}
 
-	/*c := cors.New(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:3333", "https://stalker.tools.dev.k8s.coyote.local"},
+	c := cors.New(cors.Options{
+		AllowedOrigins:   []string{"http://localhost:3001"},
 		AllowedMethods:   []string{"GET", "UPDATE", "PUT", "POST", "DELETE", "OPTIONS"},
 		AllowedHeaders:   []string{"Accept", "Content-Type", "Content-Length", "Accept-Encoding", "Authorization", "X-CSRF-Token", "Cookie"},
 		AllowCredentials: true,
 		Debug:            true,
-	})*/
+	})
 
 	mux := http.NewServeMux()
-	mux.Handle("GET /", http.HandlerFunc(srv.HelloWorld))
-	mux.Handle("POST /expence", http.HandlerFunc(srv.AddExpence))
-	mux.Handle("GET /expences", http.HandlerFunc(srv.GetAllExpences))
-	// mux.Handle("POST /sign-in", c.Handler(http.HandlerFunc(h.signInHandlerFunc)))
+	mux.Handle("POST /expense", http.HandlerFunc(srv.AddExpense))
+	mux.Handle("GET /expenses", http.HandlerFunc(srv.GetAllExpenses))
 
 	srv.s = &http.Server{
 		Addr:    fmt.Sprintf(":%d", cfg.Port),
-		Handler: mux,
+		Handler: c.Handler(mux),
 	}
 
 	return srv, nil
@@ -115,14 +115,10 @@ func (srv *Server) Run(ctx context.Context) error {
 	return nil
 }
 
-func (srv *Server) HelloWorld(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Hello World")) //nolint:errcheck
-}
-
-func (srv *Server) AddExpence(w http.ResponseWriter, r *http.Request) {
+func (srv *Server) AddExpense(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
-	req := &AddExpence{}
+	req := &AddExpense{}
 
 	d := json.NewDecoder(r.Body)
 	if err := d.Decode(req); err != nil {
@@ -138,14 +134,14 @@ func (srv *Server) AddExpence(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	re := &domain.AddExpenceReq{
+	re := &domain.AddExpenseReq{
 		CreationDate: req.CreationDate,
 		Label:        req.Label,
 		Value:        req.Value,
 		Interval:     i,
 	}
 
-	if err := srv.deps.App.AddExpence(r.Context(), re); err != nil {
+	if err := srv.deps.App.AddExpense(r.Context(), re); err != nil {
 		srv.writeResponseMessage(w, http.StatusInternalServerError, err.Error())
 
 		return
@@ -154,8 +150,8 @@ func (srv *Server) AddExpence(w http.ResponseWriter, r *http.Request) {
 	srv.writeResponseMessage(w, http.StatusOK, "expence added")
 }
 
-func (srv *Server) GetAllExpences(w http.ResponseWriter, r *http.Request) {
-	e, err := srv.deps.App.GetAllExpences(r.Context())
+func (srv *Server) GetAllExpenses(w http.ResponseWriter, r *http.Request) {
+	e, err := srv.deps.App.GetAllExpenses(r.Context())
 	if err != nil {
 		srv.writeResponseMessage(w, http.StatusInternalServerError, err.Error())
 
