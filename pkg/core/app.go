@@ -11,12 +11,12 @@ import (
 var _ domain.App = (*App)(nil)
 
 type App struct {
-	expenceStore domain.Store
+	expenseStore domain.Store
 }
 
 func New(store domain.Store) *App {
 	return &App{
-		expenceStore: store,
+		expenseStore: store,
 	}
 }
 
@@ -31,13 +31,13 @@ func (a *App) AddExpense(ctx context.Context, req *domain.AddExpenseReq) error {
 		Label:        req.Label,
 	}
 
-	if err := a.expenceStore.AddExpense(ctx, e); err != nil {
-		return fmt.Errorf("a.expenceStore.AddExpense: %w", err)
+	if err := a.expenseStore.AddExpense(ctx, e); err != nil {
+		return fmt.Errorf("a.expenseStore.AddExpense: %w", err)
 	}
 
 	return nil
 }
 
 func (a *App) GetAllExpenses(ctx context.Context) ([]*domain.Expense, error) {
-	return a.expenceStore.GetAllExpenses(ctx)
+	return a.expenseStore.GetAllExpenses(ctx)
 }

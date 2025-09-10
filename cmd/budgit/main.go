@@ -4,6 +4,9 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/apelletant/budgit/pkg/core"
 	"github.com/apelletant/budgit/pkg/domain"
@@ -18,7 +21,10 @@ type app struct {
 }
 
 func main() {
-	RunApp(context.Background())
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	defer stop()
+
+	RunApp(ctx)
 }
 
 func RunApp(ctx context.Context) {

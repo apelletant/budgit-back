@@ -18,8 +18,8 @@ func New() *Store {
 	}
 }
 
-func (s *Store) AddExpense(ctx context.Context, expence *domain.Expense) error {
-	s.content[expence.ID.String()] = expence
+func (s *Store) AddExpense(ctx context.Context, expense *domain.Expense) error {
+	s.content[expense.ID.String()] = expense
 	return nil
 }
 

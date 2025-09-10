@@ -8,6 +8,7 @@ type dependencies struct {
 
 func setupDeps(cfg *Config) (*dependencies, error) {
 	logger := logger.NewLogger(cfg.Debug)
+
 	return &dependencies{
 		log: logger,
 	}, nil

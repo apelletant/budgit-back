@@ -147,7 +147,7 @@ func (srv *Server) AddExpense(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	srv.writeResponseMessage(w, http.StatusOK, "expence added")
+	srv.writeResponseMessage(w, http.StatusOK, "expense added")
 }
 
 func (srv *Server) GetAllExpenses(w http.ResponseWriter, r *http.Request) {
